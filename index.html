@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Copperplate, Papyrus, fantasy;
+      background-color: rgb(90, 62, 3);
+    }
+
+    .login-container {
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background: rgb(177, 166, 5);
+      padding: 40px 50px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgb(1, 23, 41);
+      text-align: center;
+      width: 320px;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #eef6ff;
+    }
+
+    .login-box input {
+      width: 92%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #f1c388;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #292301;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .login-box button:hover {
+      background-color: #0990ff;
+    }
+
+    .signup-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #f5f5f5;
+    }
+
+    .signup-link a {
+      color: #fdffdb;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Login with your account</h2>
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button onclick="validateLogin()">Login</button>
+
+      <div class="signup-link">
+        Don’t have an account? <a href="#">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function validateLogin() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
+      }
+
+      location.href = "products.html";
+    }
+  </script>
+</body>
+</html>
