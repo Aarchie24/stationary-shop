@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <meta charset="UTF-8">
   <title>Study Stationery Items</title>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#724407" />
   <style>
     body {
       font-family: Copperplate, Papyrus, fantasy;
@@ -15,27 +18,7 @@
     h1 {
       text-align: center;
       color: #724407;
-      margin-bottom: 20px;
-    }
-
-    .top-bar {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 20px;
-    }
-
-    .top-bar a {
-      text-decoration: none;
-      font-weight: bold;
-      color: #000;
-      padding: 8px 12px;
-      background-color: #fff3b0;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .top-bar a:hover {
-      background-color: #ffda6f;
+      margin-bottom: 40px;
     }
 
     .product-grid {
@@ -87,32 +70,66 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 14px;
-      transition: background-color 0.3s ease;
     }
 
     .buy-btn:hover {
       background-color: #0056c1;
     }
+
+    .cart-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .cart-button button {
+      background-color: #9b5b08;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      display: inline-block;
+    }
+
+    @media (max-width: 600px) {
+      .cart-button {
+        top: 10px;
+        right: 10px;
+      }
+
+      .cart-button button {
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+    }
+
+
   </style>
 </head>
 <body>
-  <h1>Study Stationery Items</h1>
-  <div class="top-bar">
-    <a href="cart.html"><i class="fas fa-shopping-cart"></i> View Cart</a>
+
+  <div class="cart-button">
+    <button onclick="location.href='cart.html'">🛒 View Cart</button>
   </div>
+
+  <h1>Study Stationery Items</h1>
   <div class="product-grid">
     <div class="product-card">
       <img src="images/pen.jpg" alt="Pens">
       <div class="product-title">Blue Gel Pen (Pack of 5)</div>
       <div class="product-price">₹199</div>
-      <button class="buy-btn" onclick="addToCart('Blue Gel Pen', 199)">Add to Cart</button>
+      <button class="buy-btn" onclick="addToCart('Pen', 199)">Add to Cart</button>
     </div>
 
     <div class="product-card">
       <img src="images/notebook.jpg" alt="Notebook">
       <div class="product-title">Spiral Notebook - 200 pages</div>
       <div class="product-price">₹119</div>
-      <button class="buy-btn" onclick="addToCart('Spiral Notebook', 119)">Add to Cart</button>
+      <button class="buy-btn" onclick="addToCart('Notebook', 119)">Add to Cart</button>
     </div>
 
     <div class="product-card">
@@ -133,30 +150,34 @@
       <img src="images/diary.jpg" alt="Planner">
       <div class="product-title">Daily Planner Diary</div>
       <div class="product-price">₹179</div>
-      <button class="buy-btn" onclick="addToCart('Planner Diary', 179)">Add to Cart</button>
+      <button class="buy-btn" onclick="addToCart('Diary', 179)">Add to Cart</button>
     </div>
 
     <div class="product-card">
       <img src="images/mug.jpg" alt="Pen Mug">
-      <div class="product-title">Pen mug</div>
+      <div class="product-title">Pen Mug</div>
       <div class="product-price">₹349</div>
-      <button class="buy-btn" onclick="addToCart('Pen mug', 349)">Add to Cart</button>
+      <button class="buy-btn" onclick="addToCart('Mug', 349)">Add to Cart</button>
     </div>
   </div>
 
   <script>
     function addToCart(productName, price) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
       const existingItem = cart.find(item => item.name === productName);
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
         cart.push({ name: productName, price: price, quantity: 1 });
       }
-
       localStorage.setItem("cart", JSON.stringify(cart));
       alert(productName + " added to cart!");
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker registered!'))
+        .catch(err => console.error('SW registration failed:', err));
     }
   </script>
 </body>
